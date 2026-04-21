@@ -1,0 +1,1307 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Igreja Abundante Vida – MEPC</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;0,700;1,300;1,400&family=DM+Sans:wght@300;400;500&family=Great+Vibes&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <style>
+    /* ===== RESET & BASE ===== */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --black: #0e0e0e;
+      --off-black: #1a1a1a;
+      --white: #fafafa;
+      --gray-100: #f0f0f0;
+      --gray-200: #e0e0e0;
+      --gray-400: #a0a0a0;
+      --gray-600: #606060;
+      --accent: #c8a96e;
+      --accent-light: #e8d5b0;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background: var(--white);
+      color: var(--black);
+      font-size: 16px;
+      line-height: 1.7;
+      overflow-x: hidden;
+    }
+
+    /* ===== SCROLLBAR ===== */
+    ::-webkit-scrollbar { width: 5px; }
+    ::-webkit-scrollbar-track { background: var(--black); }
+    ::-webkit-scrollbar-thumb { background: var(--accent); border-radius: 10px; }
+
+    /* ===== TYPOGRAPHY ===== */
+    h1, h2, h3, h4 {
+      font-family: 'Cormorant Garamond', serif;
+      line-height: 1.15;
+    }
+
+    .script { font-family: 'Great Vibes', cursive; }
+
+    /* ===== NAVBAR ===== */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0 5%;
+      height: 70px;
+      background: rgba(14,14,14,0.96);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid rgba(200,169,110,0.18);
+      transition: box-shadow 0.3s;
+    }
+
+    nav.scrolled { box-shadow: 0 4px 30px rgba(0,0,0,0.5); }
+
+    .nav-logo {
+      display: flex; align-items: center; gap: 12px; text-decoration: none;
+    }
+
+    .nav-logo img {
+      width: 40px; height: 40px; object-fit: contain;
+      filter: brightness(1.1);
+    }
+
+    .nav-logo-text {
+      display: flex; flex-direction: column; gap: 0;
+    }
+
+    .nav-logo-text .name {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1rem; font-weight: 600;
+      color: var(--white); letter-spacing: 0.04em;
+      line-height: 1.1;
+    }
+
+    .nav-logo-text .sub {
+      font-size: 0.6rem; color: var(--accent);
+      letter-spacing: 0.2em; text-transform: uppercase;
+    }
+
+    .nav-links {
+      display: flex; align-items: center; gap: 2rem;
+      list-style: none;
+    }
+
+    .nav-links a {
+      color: var(--gray-200); text-decoration: none;
+      font-size: 0.8rem; letter-spacing: 0.12em; text-transform: uppercase;
+      font-weight: 400;
+      position: relative; transition: color 0.3s;
+    }
+
+    .nav-links a::after {
+      content: ''; position: absolute; bottom: -3px; left: 0;
+      width: 0; height: 1px; background: var(--accent);
+      transition: width 0.3s;
+    }
+
+    .nav-links a:hover { color: var(--white); }
+    .nav-links a:hover::after { width: 100%; }
+
+    .nav-links .btn-live {
+      background: var(--accent); color: var(--black);
+      padding: 7px 16px; border-radius: 2px;
+      font-weight: 500; transition: background 0.3s, transform 0.2s;
+    }
+
+    .nav-links .btn-live::after { display: none; }
+    .nav-links .btn-live:hover { background: var(--accent-light); transform: translateY(-1px); }
+
+    .hamburger {
+      display: none; flex-direction: column; gap: 5px;
+      cursor: pointer; background: none; border: none; padding: 4px;
+    }
+
+    .hamburger span {
+      display: block; width: 24px; height: 2px;
+      background: var(--white); transition: all 0.3s;
+    }
+
+    .hamburger.open span:nth-child(1) { transform: rotate(45deg) translate(5px,5px); }
+    .hamburger.open span:nth-child(2) { opacity: 0; }
+    .hamburger.open span:nth-child(3) { transform: rotate(-45deg) translate(5px,-5px); }
+
+    .mobile-menu {
+      display: none; position: fixed; top: 70px; left: 0; right: 0;
+      background: var(--off-black); z-index: 999;
+      flex-direction: column; align-items: center; gap: 0;
+      border-bottom: 1px solid rgba(200,169,110,0.2);
+      transform: translateY(-110%); transition: transform 0.4s cubic-bezier(0.4,0,0.2,1);
+    }
+
+    .mobile-menu.open { transform: translateY(0); }
+
+    .mobile-menu a {
+      width: 100%; text-align: center;
+      padding: 16px; color: var(--gray-200);
+      text-decoration: none; font-size: 0.85rem;
+      letter-spacing: 0.15em; text-transform: uppercase;
+      border-bottom: 1px solid rgba(255,255,255,0.05);
+      transition: background 0.2s, color 0.2s;
+    }
+
+    .mobile-menu a:hover { background: rgba(200,169,110,0.1); color: var(--accent); }
+
+    /* ===== HERO ===== */
+    #inicio {
+      position: relative; min-height: 100vh;
+      display: flex; flex-direction: column; align-items: center; justify-content: center;
+      background: var(--black);
+      overflow: hidden;
+      padding: 100px 5% 60px;
+    }
+
+    .hero-bg {
+      position: absolute; inset: 0;
+      background: 
+        radial-gradient(ellipse 80% 60% at 50% 100%, rgba(200,169,110,0.06) 0%, transparent 70%),
+        radial-gradient(ellipse 40% 40% at 20% 20%, rgba(200,169,110,0.04) 0%, transparent 60%);
+    }
+
+    .hero-grid-overlay {
+      position: absolute; inset: 0; opacity: 0.03;
+      background-image: 
+        linear-gradient(var(--white) 1px, transparent 1px),
+        linear-gradient(90deg, var(--white) 1px, transparent 1px);
+      background-size: 50px 50px;
+    }
+
+    .hero-content {
+      position: relative; z-index: 2;
+      display: flex; flex-direction: column; align-items: center;
+      text-align: center; gap: 24px;
+      max-width: 860px;
+    }
+
+    .hero-badge {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: rgba(200,169,110,0.12); border: 1px solid rgba(200,169,110,0.3);
+      padding: 6px 18px; border-radius: 40px;
+      font-size: 0.7rem; letter-spacing: 0.25em; text-transform: uppercase;
+      color: var(--accent); animation: fadeDown 0.8s ease both;
+    }
+
+    .hero-badge span { width: 5px; height: 5px; background: var(--accent); border-radius: 50%; }
+
+    .hero-title {
+      font-size: clamp(3rem, 8vw, 6.5rem);
+      font-weight: 700; color: var(--white);
+      animation: fadeUp 0.9s 0.1s ease both;
+      letter-spacing: -0.02em;
+    }
+
+    .hero-title em {
+      font-style: italic; color: var(--accent);
+      display: block;
+    }
+
+    .hero-subtitle {
+      font-size: clamp(0.9rem, 2vw, 1.05rem);
+      color: var(--gray-400); letter-spacing: 0.15em;
+      text-transform: uppercase; font-weight: 300;
+      animation: fadeUp 0.9s 0.2s ease both;
+    }
+
+    .hero-slogan {
+      font-family: 'Great Vibes', cursive;
+      font-size: clamp(1.8rem, 4.5vw, 3rem);
+      color: var(--white); line-height: 1.3;
+      animation: fadeUp 0.9s 0.3s ease both;
+    }
+
+    .hero-heart {
+      color: #e05555; font-size: 0.85em;
+      animation: pulse 1.8s ease-in-out infinite;
+      display: inline-block;
+    }
+
+    .hero-divider {
+      width: 60px; height: 1px;
+      background: linear-gradient(90deg, transparent, var(--accent), transparent);
+      animation: fadeUp 0.9s 0.4s ease both;
+    }
+
+    .hero-cta {
+      display: flex; gap: 16px; flex-wrap: wrap; justify-content: center;
+      animation: fadeUp 0.9s 0.5s ease both;
+    }
+
+    .btn-primary {
+      background: var(--accent); color: var(--black);
+      padding: 13px 30px; border-radius: 2px;
+      text-decoration: none; font-size: 0.8rem;
+      letter-spacing: 0.15em; text-transform: uppercase; font-weight: 500;
+      transition: all 0.3s; border: 1px solid var(--accent);
+    }
+
+    .btn-primary:hover { background: transparent; color: var(--accent); }
+
+    .btn-outline {
+      background: transparent; color: var(--white);
+      padding: 13px 30px; border-radius: 2px;
+      text-decoration: none; font-size: 0.8rem;
+      letter-spacing: 0.15em; text-transform: uppercase;
+      border: 1px solid rgba(255,255,255,0.3);
+      transition: all 0.3s;
+    }
+
+    .btn-outline:hover { border-color: var(--white); background: rgba(255,255,255,0.05); }
+
+    .hero-scroll {
+      position: absolute; bottom: 30px; left: 50%; transform: translateX(-50%);
+      display: flex; flex-direction: column; align-items: center; gap: 8px;
+      color: var(--gray-600); font-size: 0.65rem; letter-spacing: 0.2em;
+      text-transform: uppercase; animation: bounce 2s ease infinite;
+    }
+
+    .hero-scroll i { font-size: 1rem; }
+
+    /* ===== SECTION BASE ===== */
+    section { padding: 90px 5%; }
+
+    .section-label {
+      font-size: 0.65rem; letter-spacing: 0.3em; text-transform: uppercase;
+      color: var(--accent); margin-bottom: 12px; display: block;
+    }
+
+    .section-title {
+      font-size: clamp(2rem, 4vw, 3.2rem);
+      font-weight: 600; line-height: 1.1;
+      color: var(--black); margin-bottom: 16px;
+    }
+
+    .section-title.light { color: var(--white); }
+
+    .section-lead {
+      font-size: 1rem; color: var(--gray-600);
+      max-width: 560px; line-height: 1.8;
+    }
+
+    .section-lead.light { color: var(--gray-400); }
+
+    .section-line {
+      width: 48px; height: 2px;
+      background: linear-gradient(90deg, var(--accent), transparent);
+      margin: 20px 0 40px;
+    }
+
+    /* ===== QUEM SOMOS ===== */
+    #quem-somos {
+      background: var(--white);
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 80px; align-items: center;
+    }
+
+    .quem-somos-text { }
+
+    .quem-somos-text p {
+      font-size: 1rem; color: var(--gray-600); line-height: 1.9;
+      margin-bottom: 1.2rem;
+    }
+
+    .quem-somos-visual {
+      position: relative;
+    }
+
+    .qs-card {
+      background: var(--black); color: var(--white);
+      padding: 50px 40px; border-radius: 4px;
+      position: relative; overflow: hidden;
+    }
+
+    .qs-card::before {
+      content: '';
+      position: absolute; top: 0; left: 0; right: 0; height: 3px;
+      background: linear-gradient(90deg, var(--accent), transparent);
+    }
+
+    .qs-card-quote {
+      font-family: 'Great Vibes', cursive;
+      font-size: 2.4rem; color: var(--accent);
+      line-height: 1.4; margin-bottom: 20px;
+    }
+
+    .qs-card-ref {
+      font-size: 0.75rem; letter-spacing: 0.15em; text-transform: uppercase;
+      color: var(--gray-600);
+    }
+
+    .qs-stats {
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 2px; margin-top: 2px;
+    }
+
+    .qs-stat {
+      background: var(--gray-100); padding: 24px;
+      text-align: center;
+    }
+
+    .qs-stat .number {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 2.5rem; font-weight: 700; color: var(--black);
+      line-height: 1;
+    }
+
+    .qs-stat .label {
+      font-size: 0.72rem; letter-spacing: 0.15em;
+      text-transform: uppercase; color: var(--gray-600); margin-top: 4px;
+    }
+
+    /* ===== AGENDA / CULTOS ===== */
+    #agenda {
+      background: var(--black);
+      color: var(--white);
+    }
+
+    .agenda-header { max-width: 600px; margin-bottom: 60px; }
+
+    .cultos-grid {
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 2px;
+    }
+
+    .culto-card {
+      background: var(--off-black); padding: 36px 32px;
+      position: relative; overflow: hidden;
+      border: 1px solid rgba(255,255,255,0.06);
+      transition: background 0.3s, transform 0.3s;
+      cursor: default;
+    }
+
+    .culto-card::before {
+      content: '';
+      position: absolute; inset: 0;
+      background: linear-gradient(135deg, rgba(200,169,110,0.05), transparent);
+      opacity: 0; transition: opacity 0.4s;
+    }
+
+    .culto-card:hover { background: #222; transform: translateY(-3px); }
+    .culto-card:hover::before { opacity: 1; }
+
+    .culto-card.featured {
+      background: var(--accent); color: var(--black);
+      border-color: var(--accent);
+    }
+
+    .culto-card.featured .culto-day,
+    .culto-card.featured .culto-type,
+    .culto-card.featured .culto-time { color: var(--black); }
+
+    .culto-day {
+      font-size: 0.65rem; letter-spacing: 0.25em;
+      text-transform: uppercase; color: var(--accent);
+      margin-bottom: 12px;
+    }
+
+    .culto-card.featured .culto-day { color: rgba(0,0,0,0.6); }
+
+    .culto-time {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 3rem; font-weight: 700;
+      color: var(--white); line-height: 1;
+    }
+
+    .culto-type {
+      font-size: 0.85rem; color: var(--gray-400);
+      margin-top: 10px; line-height: 1.5;
+    }
+
+    .culto-icon {
+      position: absolute; bottom: 24px; right: 24px;
+      font-size: 2rem; opacity: 0.12;
+    }
+
+    /* ===== PASTORES ===== */
+    #pastores {
+      background: var(--gray-100);
+    }
+
+    .pastores-grid {
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 32px; margin-top: 20px;
+    }
+
+    .pastor-card {
+      background: var(--white); border-radius: 4px;
+      overflow: hidden; border: 1px solid var(--gray-200);
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+
+    .pastor-card:hover { transform: translateY(-6px); box-shadow: 0 20px 50px rgba(0,0,0,0.1); }
+
+    .pastor-avatar {
+      width: 100%; height: 240px;
+      background: var(--black);
+      display: flex; align-items: center; justify-content: center;
+      position: relative; overflow: hidden;
+    }
+
+    .pastor-avatar-icon {
+      font-size: 5rem; color: rgba(200,169,110,0.3);
+    }
+
+    .pastor-avatar-initials {
+      position: absolute;
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 4rem; font-weight: 700;
+      color: var(--accent); opacity: 0.6;s
+    }
+
+    .pastor-info { padding: 28px; }
+
+    .pastor-role {
+      font-size: 0.65rem; letter-spacing: 0.25em; text-transform: uppercase;
+      color: var(--accent); margin-bottom: 8px;
+    }
+
+    .pastor-name {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.8rem; font-weight: 600; color: var(--black);
+      margin-bottom: 12px;
+    }
+
+    .pastor-desc {
+      font-size: 0.88rem; color: var(--gray-600); line-height: 1.8;
+    }
+
+    .pastor-social {
+      display: flex; gap: 12px; margin-top: 20px;
+    }
+
+    .pastor-social a {
+      width: 36px; height: 36px; border-radius: 50%;
+      background: var(--gray-100); border: 1px solid var(--gray-200);
+      display: flex; align-items: center; justify-content: center;
+      color: var(--gray-600); font-size: 0.85rem;
+      text-decoration: none; transition: all 0.3s;
+    }
+
+    .pastor-social a:hover { background: var(--black); color: var(--white); border-color: var(--black); }
+
+    /* ===== CÉLULAS ===== */
+    #celulas {
+      background: var(--black); color: var(--white);
+      text-align: center;
+    }
+
+    .celulas-inner { max-width: 720px; margin: 0 auto; }
+
+    .celulas-icon {
+      font-size: 3.5rem; color: var(--accent);
+      margin-bottom: 24px; display: block;
+    }
+
+    .celulas-features {
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 2px; margin: 48px 0;
+    }
+
+    .celulas-feature {
+      background: var(--off-black); padding: 28px 20px;
+      border: 1px solid rgba(255,255,255,0.05);
+      transition: background 0.3s;
+    }
+
+    .celulas-feature:hover { background: #222; }
+
+    .celulas-feature i {
+      font-size: 1.5rem; color: var(--accent); margin-bottom: 12px; display: block;
+    }
+
+    .celulas-feature h4 {
+      font-size: 0.85rem; letter-spacing: 0.1em;
+      text-transform: uppercase; color: var(--white);
+      margin-bottom: 8px;
+    }
+
+    .celulas-feature p {
+      font-size: 0.8rem; color: var(--gray-600); line-height: 1.6;
+    }
+
+    /* ===== ONDE ESTAMOS ===== */
+    #onde-estamos { background: var(--white); }
+
+    .onde-grid {
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 60px; align-items: start; margin-top: 20px;
+    }
+
+    .onde-info-block { }
+
+    .address-card {
+      background: var(--gray-100); padding: 28px;
+      border-left: 3px solid var(--accent); margin-bottom: 20px;
+      border-radius: 0 4px 4px 0;
+    }
+
+    .address-card h4 {
+      font-size: 0.7rem; letter-spacing: 0.2em; text-transform: uppercase;
+      color: var(--accent); margin-bottom: 10px;
+    }
+
+    .address-card p { font-size: 0.92rem; color: var(--gray-600); line-height: 1.7; }
+
+    .contact-item {
+      display: flex; align-items: center; gap: 14px;
+      padding: 16px 0; border-bottom: 1px solid var(--gray-200);
+    }
+
+    .contact-item i { color: var(--accent); font-size: 1rem; width: 20px; }
+
+    .contact-item a {
+      color: var(--gray-600); text-decoration: none;
+      font-size: 0.9rem; transition: color 0.2s;
+    }
+
+    .contact-item a:hover { color: var(--black); }
+
+    .map-container {
+      border-radius: 4px; overflow: hidden;
+      height: 400px; border: 2px solid var(--gray-200);
+      position: relative;
+    }
+
+    .map-container iframe { width: 100%; height: 100%; border: none; }
+
+    /* ===== REDES SOCIAIS ===== */
+    #redes {
+      background: var(--gray-100); text-align: center;
+      padding: 80px 5%;
+    }
+
+    .redes-grid {
+      display: flex; justify-content: center; flex-wrap: wrap;
+      gap: 20px; margin-top: 48px;
+    }
+
+    .rede-card {
+      display: flex; flex-direction: column; align-items: center;
+      gap: 12px; text-decoration: none;
+      background: var(--white); border: 1px solid var(--gray-200);
+      padding: 32px 40px; border-radius: 4px;
+      transition: all 0.3s; min-width: 180px;
+    }
+
+    .rede-card:hover { background: var(--black); transform: translateY(-5px); box-shadow: 0 15px 40px rgba(0,0,0,0.15); }
+
+    .rede-card:hover .rede-icon,
+    .rede-card:hover .rede-name { color: var(--white); }
+
+    .rede-icon { font-size: 2.2rem; color: var(--black); transition: color 0.3s; }
+    .rede-name { font-size: 0.75rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--black); transition: color 0.3s; }
+
+    .rede-stats { font-size: 0.7rem; color: var(--gray-400); margin-top: 4px; }
+    .rede-card:hover .rede-stats { color: var(--gray-400); }
+
+    /* ===== FALE CONOSCO ===== */
+    #fale-conosco {
+      background: var(--black); color: var(--white);
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 80px; align-items: center;
+    }
+
+    .form-group { margin-bottom: 20px; }
+
+    .form-group label {
+      display: block; font-size: 0.7rem; letter-spacing: 0.2em;
+      text-transform: uppercase; color: var(--gray-400); margin-bottom: 8px;
+    }
+
+    .form-group input,
+    .form-group textarea,
+    .form-group select {
+      width: 100%; background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.12);
+      color: var(--white); padding: 14px 16px;
+      font-family: 'DM Sans', sans-serif; font-size: 0.9rem;
+      border-radius: 2px; outline: none;
+      transition: border-color 0.3s;
+    }
+
+    .form-group input:focus,
+    .form-group textarea:focus { border-color: var(--accent); }
+
+    .form-group textarea { min-height: 140px; resize: vertical; }
+
+    .form-group select option { background: var(--black); }
+
+    .btn-submit {
+      background: var(--accent); color: var(--black);
+      padding: 14px 32px; border: none; border-radius: 2px;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.8rem; letter-spacing: 0.18em; text-transform: uppercase;
+      font-weight: 500; cursor: pointer; transition: all 0.3s;
+      width: 100%;
+    }
+
+    .btn-submit:hover { background: var(--accent-light); transform: translateY(-2px); }
+
+    .fale-info h3 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 2.4rem; margin-bottom: 16px; color: var(--white);
+    }
+
+    .fale-info p { color: var(--gray-400); line-height: 1.8; margin-bottom: 32px; }
+
+    .fale-verse {
+      border-left: 2px solid var(--accent); padding-left: 20px;
+      margin-top: 40px;
+    }
+
+    .fale-verse blockquote {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.3rem; font-style: italic; color: var(--gray-200);
+      line-height: 1.6; margin-bottom: 8px;
+    }
+
+    .fale-verse cite {
+      font-size: 0.7rem; letter-spacing: 0.2em; text-transform: uppercase;
+      color: var(--accent);
+    }
+
+    /* ===== FOOTER ===== */
+    footer {
+      background: #080808; color: var(--white);
+      padding: 60px 5% 30px;
+    }
+
+    .footer-grid {
+      display: grid; grid-template-columns: 2fr 1fr 1fr 1fr;
+      gap: 48px; padding-bottom: 48px;
+      border-bottom: 1px solid rgba(255,255,255,0.07);
+    }
+
+    .footer-logo { margin-bottom: 16px; }
+
+    .footer-logo-name {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.5rem; color: var(--white); font-weight: 600;
+    }
+
+    .footer-logo-sub {
+      font-size: 0.65rem; letter-spacing: 0.2em;
+      text-transform: uppercase; color: var(--accent);
+    }
+
+    .footer-desc {
+      font-size: 0.85rem; color: var(--gray-600);
+      line-height: 1.8; margin-top: 16px;
+    }
+
+    .footer-social {
+      display: flex; gap: 10px; margin-top: 24px;
+    }
+
+    .footer-social a {
+      width: 36px; height: 36px;
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 50%; display: flex;
+      align-items: center; justify-content: center;
+      color: var(--gray-600); font-size: 0.85rem;
+      text-decoration: none; transition: all 0.3s;
+    }
+
+    .footer-social a:hover { background: var(--accent); border-color: var(--accent); color: var(--black); }
+
+    .footer-col h5 {
+      font-size: 0.7rem; letter-spacing: 0.25em;
+      text-transform: uppercase; color: var(--accent);
+      margin-bottom: 20px; padding-bottom: 8px;
+      border-bottom: 1px solid rgba(200,169,110,0.2);
+    }
+
+    .footer-col ul { list-style: none; }
+
+    .footer-col ul li { margin-bottom: 10px; }
+
+    .footer-col ul li a {
+      color: var(--gray-600); text-decoration: none;
+      font-size: 0.85rem; transition: color 0.2s;
+    }
+
+    .footer-col ul li a:hover { color: var(--white); }
+
+    .footer-col ul li span { color: var(--gray-600); font-size: 0.85rem; }
+
+    .footer-bottom {
+      display: flex; align-items: center; justify-content: space-between;
+      padding-top: 28px; flex-wrap: wrap; gap: 12px;
+    }
+
+    .footer-bottom p {
+      font-size: 0.75rem; color: var(--gray-600);
+    }
+
+    .footer-bottom a { color: var(--accent); text-decoration: none; }
+
+    /* ===== ANIMATIONS ===== */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(30px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes fadeDown {
+      from { opacity: 0; transform: translateY(-20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes bounce {
+      0%, 100% { transform: translateX(-50%) translateY(0); }
+      50% { transform: translateX(-50%) translateY(8px); }
+    }
+
+    @keyframes pulse {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.25); }
+    }
+
+    .reveal {
+      opacity: 0; transform: translateY(30px);
+      transition: opacity 0.7s ease, transform 0.7s ease;
+    }
+
+    .reveal.visible { opacity: 1; transform: translateY(0); }
+
+    /* ===== RESPONSIVE ===== */
+    @media (max-width: 960px) {
+      #quem-somos { grid-template-columns: 1fr; gap: 48px; }
+      .onde-grid { grid-template-columns: 1fr; }
+      #fale-conosco { grid-template-columns: 1fr; gap: 48px; }
+      .footer-grid { grid-template-columns: 1fr 1fr; }
+    }
+
+    @media (max-width: 768px) {
+      .nav-links { display: none; }
+      .hamburger { display: flex; }
+      .mobile-menu { display: flex; }
+
+      section { padding: 60px 5%; }
+      #quem-somos { padding: 60px 5%; }
+      #fale-conosco { padding: 60px 5%; }
+
+      .qs-stats { grid-template-columns: 1fr 1fr; }
+
+      .footer-grid { grid-template-columns: 1fr; gap: 32px; }
+      .footer-bottom { flex-direction: column; text-align: center; }
+    }
+
+    @media (max-width: 480px) {
+      .hero-cta { flex-direction: column; align-items: stretch; }
+      .btn-primary, .btn-outline { text-align: center; }
+      .cultos-grid { grid-template-columns: 1fr; }
+      .pastores-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ===== NAVBAR ===== -->
+  <nav id="navbar">
+    <a href="#inicio" class="nav-logo">
+        <img src="logo.png" alt="Logo Igreja Abundante Vida" class="logo-img" />      <div class="nav-logo-text">
+        <span class="name">Abundante Vida</span>
+        <span class="sub">MEPC</span>
+      </div>
+    </a>
+
+    <ul class="nav-links">
+      <li><a href="#inicio">Início</a></li>
+      <li><a href="#quem-somos">Quem Somos</a></li>
+      <li><a href="#agenda">Agenda</a></li>
+      <li><a href="#celulas">Células</a></li>
+      <li><a href="#onde-estamos">Onde Estamos</a></li>
+      <li><a href="#fale-conosco">Fale Conosco</a></li>
+      <li><a href="https://www.youtube.com/@igrejaabundantevida_mepc" target="_blank" class="btn-live"><i class="fab fa-youtube"></i> Ao Vivo</a></li>
+    </ul>
+
+    <button class="hamburger" id="hamburger" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
+  </nav>
+
+  <!-- MOBILE MENU -->
+  <div class="mobile-menu" id="mobileMenu">
+    <a href="#inicio" onclick="closeMenu()">Início</a>
+    <a href="#quem-somos" onclick="closeMenu()">Quem Somos</a>
+    <a href="#agenda" onclick="closeMenu()">Agenda</a>
+    <a href="#celulas" onclick="closeMenu()">Células</a>
+    <a href="#onde-estamos" onclick="closeMenu()">Onde Estamos</a>
+    <a href="#fale-conosco" onclick="closeMenu()">Fale Conosco</a>
+    <a href="https://www.youtube.com/@igrejaabundantevida_mepc" target="_blank">▶ Culto ao Vivo</a>
+  </div>
+
+  <!-- ===== HERO ===== -->
+  <section id="inicio">
+    <div class="hero-bg"></div>
+    <div class="hero-grid-overlay"></div>
+
+    <div class="hero-content">
+      <div class="hero-badge">
+        <span></span> Ministério Evangélico Porta do Céu <span></span>
+      </div>
+
+      <h1 class="hero-title">
+        Igreja<br><em>Abundante Vida</em>
+      </h1>
+
+      <p class="hero-subtitle">Rio das Ostras — RJ &nbsp;·&nbsp; MEPC</p>
+
+      <div class="hero-divider"></div>
+
+      <p class="hero-slogan">
+        "Amando a Deus, servindo aos outros,<br>
+        crescendo juntos." <span class="hero-heart">❤</span>
+      </p>
+
+      <div class="hero-cta">
+        <a href="#agenda" class="btn-primary">Ver Cultos</a>
+        <a href="#onde-estamos" class="btn-outline">Como Chegar</a>
+      </div>
+    </div>
+
+    <div class="hero-scroll">
+      <i class="fas fa-chevron-down"></i>
+      <span>Rolar</span>
+    </div>
+  </section>
+
+  <!-- ===== QUEM SOMOS ===== -->
+  <section id="quem-somos">
+    <div class="quem-somos-text reveal">
+      <span class="section-label">Nossa História</span>
+      <h2 class="section-title">Quem Somos</h2>
+      <div class="section-line"></div>
+      <p>A <strong>Igreja Abundante Vida – MEPC</strong> (Ministério Evangélico Porta do Céu) é uma comunidade evangélica localizada em Rio das Ostras, RJ, comprometida com o crescimento espiritual de cada membro e com o serviço ao próximo.</p>
+      <p>Nossa missão é simples e profunda: <strong>amar a Deus acima de tudo</strong>, servir aos outros com dedicação e crescer juntos como família. Aqui, você encontrará um lugar de acolhimento, adoração e transformação.</p>
+      <p>Seja você quem nunca pisou em uma igreja ou quem busca uma nova casa espiritual — <strong>você é bem-vindo aqui</strong>.</p>
+      <a href="#fale-conosco" class="btn-primary" style="display:inline-block; margin-top:10px;">Fale Conosco</a>
+    </div>
+
+    <div class="quem-somos-visual reveal" style="transition-delay:0.15s">
+      <div class="qs-card">
+        <p class="qs-card-quote">"Porque sou eu que conheço os planos que tenho para vocês, diz o Senhor, planos de fazê-los prosperar e não de causar dano, planos de dar a vocês esperança e um futuro."</p>
+        <span class="qs-card-ref">Jeremias 29:11</span>
+      </div>
+      <div class="qs-stats">
+        <div class="qs-stat">
+          <div class="number">481</div>
+          <div class="label">Vídeos no YouTube</div>
+        </div>
+        <div class="qs-stat">
+          <div class="number">51K+</div>
+          <div class="label">Visualizações</div>
+        </div>
+        <div class="qs-stat">
+          <div class="number">630+</div>
+          <div class="label">Inscritos</div>
+        </div>
+        <div class="qs-stat">
+          <div class="number">4×</div>
+          <div class="label">Cultos por semana</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== AGENDA ===== -->
+  <section id="agenda">
+    <div class="agenda-header reveal">
+      <span class="section-label">Programação</span>
+      <h2 class="section-title light">Nossos Cultos</h2>
+      <div class="section-line"></div>
+      <p class="section-lead light">Venha nos visitar. Todos os cultos são abertos ao público e a toda família.</p>
+    </div>
+
+    <div class="cultos-grid">
+      <div class="culto-card reveal">
+        <div class="culto-day">Domingo</div>
+        <div class="culto-time">09h</div>
+        <div class="culto-type">Escola Bíblica Dominical<br>(EBD)</div>
+        <i class="fas fa-book-open culto-icon"></i>
+      </div>
+
+      <div class="culto-card featured reveal" style="transition-delay:0.1s">
+        <div class="culto-day">Domingo</div>
+        <div class="culto-time">19h</div>
+        <div class="culto-type">Culto Principal<br>de Adoração</div>
+        <i class="fas fa-cross culto-icon"></i>
+      </div>
+
+      <div class="culto-card reveal" style="transition-delay:0.2s">
+        <div class="culto-day">Quarta-Feira</div>
+        <div class="culto-time">08h</div>
+        <div class="culto-type">Culto de Adoração<br>08h às 11h</div>
+        <i class="fas fa-hands-praying culto-icon"></i>
+      </div>
+
+      <div class="culto-card reveal" style="transition-delay:0.3s">
+        <div class="culto-day">Quinta-Feira</div>
+        <div class="culto-time">19h30</div>
+        <div class="culto-type">Culto de Meados<br>de Semana</div>
+        <i class="fas fa-dove culto-icon"></i>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== PASTORES ===== -->
+  <section id="pastores" style="background: var(--gray-100);">
+    <div style="text-align:center; max-width:600px; margin:0 auto 56px;" class="reveal">
+      <span class="section-label">Liderança</span>
+      <h2 class="section-title">Nossos Pastores</h2>
+      <div class="section-line" style="margin: 20px auto 0;"></div>
+    </div>
+
+    <div class="pastores-grid">
+      <div class="pastor-card reveal">
+<div class="pastor-avatar">
+  <img src="joao.png" alt="Pr. João Luiz Pereira" class="pastor-img" />
+</div>
+        <div class="pastor-info">
+          <div class="pastor-role">Pastor Titular</div>
+          <h3 class="pastor-name">Pr. João Luiz Pereira</h3>
+          <p class="pastor-desc">Líder dedicado e servo do Senhor, Pr. João Luiz conduz a Igreja Abundante Vida com amor, fé e comprometimento com a Palavra. Siga nas redes sociais para mensagens diárias de edificação.</p>
+          <div class="pastor-social">
+            <a href="https://www.instagram.com/pr.joaoluiz.pereira" target="_blank" title="Instagram"><i class="fab fa-instagram"></i></a>
+          </div>
+        </div>
+      </div>
+
+      <div class="pastor-card reveal" style="transition-delay:0.15s">
+<div class="pastor-avatar">
+  <img src="ernani.png" alt="Pr. Ernani David" class="pastor-img" />
+</div>
+        <div class="pastor-info">
+          <div class="pastor-role">Pastor e Líder Espiritual</div>
+          <h3 class="pastor-name">Pr. Ernani David</h3>
+          <p class="pastor-desc">Com vocação pastoral e coração missionário, Pr. Ernani David atua lado a lado na edificação e no discipulado da comunidade, comprometido com o crescimento espiritual de cada membro.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== CÉLULAS ===== -->
+  <section id="celulas">
+    <div class="celulas-inner">
+      <div class="reveal">
+        <i class="fas fa-fire celulas-icon"></i>
+        <span class="section-label" style="display:block; text-align:center;">Comunidade</span>
+        <h2 class="section-title light" style="text-align:center;">Grupos de Células</h2>
+        <div class="section-line" style="margin: 20px auto 0;"></div>
+        <p class="section-lead light" style="margin: 20px auto 0; text-align:center;">As células são pequenos grupos de comunhão que se reúnem em casas ou locais diversos durante a semana. São espaços de oração, estudo bíblico, amizade e crescimento mútuo.</p>
+      </div>
+
+      <div class="celulas-features reveal" style="transition-delay:0.15s">
+        <div class="celulas-feature">
+          <i class="fas fa-users"></i>
+          <h4>Comunhão</h4>
+          <p>Relacionamentos profundos e genuínos em pequenos grupos</p>
+        </div>
+        <div class="celulas-feature">
+          <i class="fas fa-bible"></i>
+          <h4>Palavra</h4>
+          <p>Estudo e aplicação prática da Bíblia no cotidiano</p>
+        </div>
+        <div class="celulas-feature">
+          <i class="fas fa-hands-praying"></i>
+          <h4>Oração</h4>
+          <p>Intercessão mútua e busca pela presença de Deus</p>
+        </div>
+      </div>
+
+      <div class="reveal" style="transition-delay:0.3s; text-align:center;">
+        <p class="section-lead light" style="margin: 0 auto 32px;">Quer participar de uma célula ou iniciar um grupo em sua casa? Entre em contato conosco!</p>
+        <a href="#fale-conosco" class="btn-primary">Quero Participar</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== ONDE ESTAMOS ===== -->
+  <section id="onde-estamos">
+    <div style="max-width:600px; margin-bottom:48px;" class="reveal">
+      <span class="section-label">Localização</span>
+      <h2 class="section-title">Onde Estamos</h2>
+      <div class="section-line"></div>
+    </div>
+
+    <div class="onde-grid">
+      <div class="onde-info-block reveal">
+        <div class="address-card">
+          <h4>Endereço Principal</h4>
+          <p>R. Leni Pereira Mello, 480<br>Balneário Remanso<br>Rio das Ostras – RJ<br>CEP 28893-135</p>
+        </div>
+
+        <div class="address-card">
+          <h4>Referência</h4>
+          <p>Rua Paranaíba, 85<br>Balneário Remanso<br>Rio das Ostras – RJ<br>CEP 28890-000</p>
+        </div>
+
+        <div class="contact-item">
+          <i class="fas fa-envelope"></i>
+          <a href="mailto:abundantevidamepc@gmail.com">abundantevidamepc@gmail.com</a>
+        </div>
+
+        <div class="contact-item">
+          <i class="fab fa-instagram"></i>
+          <a href="https://www.instagram.com/igrejaabundantevida/" target="_blank">@igrejaabundantevida</a>
+        </div>
+
+        <div class="contact-item">
+          <i class="fab fa-facebook"></i>
+          <a href="https://www.facebook.com/igrejaabundantevida/" target="_blank">Igreja Abundante Vida</a>
+        </div>
+
+        <div class="contact-item">
+          <i class="fab fa-youtube"></i>
+          <a href="https://www.youtube.com/@igrejaabundantevida_mepc" target="_blank">@igrejaabundantevida_mepc</a>
+        </div>
+      </div>
+
+      <div class="map-container reveal" style="transition-delay:0.15s">
+        <iframe
+          src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3672.1234!2d-41.9100!3d-22.5300!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2sR.+Leni+Pereira+Mello%2C+480+-+Balne%C3%A1rio+Remanso%2C+Rio+das+Ostras+-+RJ%2C+28893-135!5e0!3m2!1spt-BR!2sbr!4v1700000000000!5m2!1spt-BR!2sbr"
+          loading="lazy"
+          referrerpolicy="no-referrer-when-downgrade"
+          title="Localização Igreja Abundante Vida"
+          allowfullscreen>
+        </iframe>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== REDES SOCIAIS ===== -->
+  <section id="redes">
+    <div class="reveal" style="max-width:500px; margin:0 auto 0;">
+      <span class="section-label" style="display:block; text-align:center;">Conecte-se</span>
+      <h2 class="section-title" style="text-align:center;">Redes Sociais</h2>
+      <div class="section-line" style="margin:20px auto 0;"></div>
+    </div>
+
+    <div class="redes-grid reveal" style="transition-delay:0.1s">
+      <a href="https://www.instagram.com/igrejaabundantevida/" target="_blank" class="rede-card">
+        <i class="fab fa-instagram rede-icon"></i>
+        <span class="rede-name">Instagram</span>
+        <span class="rede-stats">@igrejaabundantevida</span>
+      </a>
+      <a href="https://www.facebook.com/igrejaabundantevida/" target="_blank" class="rede-card">
+        <i class="fab fa-facebook rede-icon"></i>
+        <span class="rede-name">Facebook</span>
+        <span class="rede-stats">Igreja Abundante Vida</span>
+      </a>
+      <a href="https://www.youtube.com/@igrejaabundantevida_mepc" target="_blank" class="rede-card">
+        <i class="fab fa-youtube rede-icon"></i>
+        <span class="rede-name">YouTube</span>
+        <span class="rede-stats">630 inscritos · 481 vídeos</span>
+      </a>
+    </div>
+  </section>
+
+  <!-- ===== RÁDIO ===== -->
+
+  <section id="redes">
+    <div class="reveal" style="max-width:500px; margin:0 auto 0;">
+      <span class="section-label" style="display:block; text-align:center;">Rádio Novo RIo</span>
+      <h2 class="section-title" style="text-align:center;">Nosso Programa Diário</h2>
+      <div class="section-line" style="margin:20px auto 0;"></div>
+    </div>
+
+    <div class="redes-grid reveal" style="transition-delay:0.1s">
+      <a href="https://novorio87fm.com.br/" target="_blank" class="rede-card">
+        <i class="fas fa-radio rede-icon"></i> 
+        <span class="rede-name">Momento com Deus</span>
+        <span class="rede-stats">09:00 às 10:00 com Pr. Ernani David</span>
+      </a>
+    </div>
+  </section>
+
+  <!-- ===== FALE CONOSCO ===== -->
+  <section id="fale-conosco">
+    <div class="fale-info reveal">
+      <span class="section-label">Contato</span>
+      <h3>Fale Conosco</h3>
+      <p>Tem dúvidas, pedidos de oração, ou quer saber mais sobre nossas atividades? Envie uma mensagem — nossa equipe terá prazer em responder.</p>
+
+      <div class="contact-item" style="border-color: rgba(255,255,255,0.1); padding: 14px 0;">
+        <i class="fas fa-envelope"></i>
+        <a href="mailto:abundantevidamepc@gmail.com" style="color: var(--gray-400);">abundantevidamepc@gmail.com</a>
+      </div>
+
+      <div class="fale-verse">
+        <blockquote>"Onde estiverem dois ou três reunidos em meu nome, ali eu estou no meio deles."</blockquote>
+        <cite>Mateus 18:20</cite>
+      </div>
+    </div>
+
+    <div class="reveal" style="transition-delay:0.15s">
+<form action="https://formspree.io/f/xojykwgd" method="POST">
+  <div class="form-group">
+    <label>Seu Nome</label>
+    <input type="text" name="nome" required>
+  </div>
+  <div class="form-group">
+    <label>E-mail</label>
+    <input type="email" name="email" required>
+  </div>
+  <div class="form-group">
+    <label>Assunto</label>
+    <select name="assunto">
+      <option>Pedido de Oração</option>
+      <option>Informações sobre Cultos</option>
+      <option>Participar de Células</option>
+      <option>Visitação</option>
+      <option>Outro</option>
+    </select>
+  </div>
+  <div class="form-group">
+    <label>Mensagem</label>
+    <textarea name="mensagem" required></textarea>
+  </div>
+  <!-- Anti-spam invisível -->
+  <input type="text" name="_gotcha" style="display:none">
+  <!-- Assunto do e-mail -->
+  <input type="hidden" name="_subject" value="Novo contato pelo site da Igreja">
+  <!-- Responder direto para quem enviou -->
+  <input type="hidden" name="_replyto" value="email">
+  <button type="submit" class="btn-submit">Enviar Mensagem</button>
+</form>
+  </section>
+
+  <!-- ===== FOOTER ===== -->
+  <footer>
+    <div class="footer-grid">
+      <div>
+        <div class="footer-logo">
+          <div class="footer-logo-name">Abundante Vida</div>
+          <div class="footer-logo-sub">MEPC – Ministério Evangélico Porta do Céu</div>
+        </div>
+        <p class="footer-desc">"Amando a Deus, servindo aos outros, crescendo juntos." ❤<br><br>Uma comunidade de fé comprometida com a transformação de vidas em Rio das Ostras, RJ.</p>
+        <div class="footer-social">
+          <a href="https://www.instagram.com/igrejaabundantevida/" target="_blank" title="Instagram"><i class="fab fa-instagram"></i></a>
+          <a href="https://www.facebook.com/igrejaabundantevida/" target="_blank" title="Facebook"><i class="fab fa-facebook-f"></i></a>
+          <a href="https://www.youtube.com/@igrejaabundantevida_mepc" target="_blank" title="YouTube"><i class="fab fa-youtube"></i></a>
+          <a href="mailto:abundantevidamepc@gmail.com" title="E-mail"><i class="fas fa-envelope"></i></a>
+        </div>
+      </div>
+
+      <div class="footer-col">
+        <h5>Menu</h5>
+        <ul>
+          <li><a href="#inicio">Início</a></li>
+          <li><a href="#quem-somos">Quem Somos</a></li>
+          <li><a href="#agenda">Agenda</a></li>
+          <li><a href="#celulas">Células</a></li>
+          <li><a href="#onde-estamos">Onde Estamos</a></li>
+          <li><a href="#fale-conosco">Fale Conosco</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h5>Cultos</h5>
+        <ul>
+          <li><span>Dom · 09h – EBD</span></li>
+          <li><span>Dom · 19h – Culto</span></li>
+          <li><span>Qua · 08h–11h</span></li>
+          <li><span>Qui · 19h30 – Culto</span></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h5>Contato</h5>
+        <ul>
+          <li><a href="mailto:abundantevidamepc@gmail.com">abundantevidamepc@gmail.com</a></li>
+          <li><span>R. Leni Pereira Mello, 480</span></li>
+          <li><span>Balneário Remanso</span></li>
+          <li><span>Rio das Ostras – RJ</span></li>
+          <li><span>CEP 28893-135</span></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      <p>&copy; 2025 Igreja Abundante Vida – MEPC. Todos os direitos reservados.</p>
+      <p>Desenvolvido com <span style="color:#e05555">❤</span> para a glória de Deus</p>
+    </div>
+  </footer>
+
+  <!-- ===== JS ===== -->
+  <script>
+    // Navbar scroll effect
+    const navbar = document.getElementById('navbar');
+    window.addEventListener('scroll', () => {
+      navbar.classList.toggle('scrolled', window.scrollY > 40);
+    });
+
+    // Hamburger menu
+    const hamburger = document.getElementById('hamburger');
+    const mobileMenu = document.getElementById('mobileMenu');
+
+    hamburger.addEventListener('click', () => {
+      hamburger.classList.toggle('open');
+      mobileMenu.classList.toggle('open');
+    });
+
+    function closeMenu() {
+      hamburger.classList.remove('open');
+      mobileMenu.classList.remove('open');
+    }
+
+    // Close mobile menu on outside click
+    document.addEventListener('click', (e) => {
+      if (!navbar.contains(e.target) && !mobileMenu.contains(e.target)) {
+        closeMenu();
+      }
+    });
+
+    // Scroll reveal
+    const reveals = document.querySelectorAll('.reveal');
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+
+    reveals.forEach(el => observer.observe(el));
+
+    // Form submit feedback
+    function handleSubmit(btn) {
+      const original = btn.textContent;
+      btn.textContent = '✓ Mensagem Enviada!';
+      btn.style.background = '#4caf50';
+      btn.disabled = true;
+      setTimeout(() => {
+        btn.textContent = original;
+        btn.style.background = '';
+        btn.disabled = false;
+      }, 3000);
+    }
+
+    // Active nav link on scroll
+    const sections = document.querySelectorAll('section[id]');
+    window.addEventListener('scroll', () => {
+      const scrollY = window.pageYOffset;
+      sections.forEach(section => {
+        const top = section.offsetTop - 100;
+        const bottom = top + section.offsetHeight;
+        const id = section.getAttribute('id');
+        const link = document.querySelector(`.nav-links a[href="#${id}"]`);
+        if (link) {
+          link.style.color = (scrollY >= top && scrollY < bottom) ? 'var(--accent)' : '';
+        }
+      });
+    });
+  </script>
+</body>
+</html>
