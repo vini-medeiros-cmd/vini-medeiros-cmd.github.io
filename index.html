@@ -9,7 +9,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;0,700;1,300;1,400&family=DM+Sans:wght@300;400;500&family=Great+Vibes&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
   <style>
-    /* ===== RESET & BASE ===== */
+    /* Reset e Base */
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
     :root {
@@ -35,12 +35,12 @@
       overflow-x: hidden;
     }
 
-    /* ===== SCROLLBAR ===== */
+    /* Scroll */
     ::-webkit-scrollbar { width: 5px; }
     ::-webkit-scrollbar-track { background: var(--black); }
     ::-webkit-scrollbar-thumb { background: var(--accent); border-radius: 10px; }
 
-    /* ===== TYPOGRAPHY ===== */
+    /* Tipografia */
     h1, h2, h3, h4 {
       font-family: 'Cormorant Garamond', serif;
       line-height: 1.15;
@@ -48,7 +48,7 @@
 
     .script { font-family: 'Great Vibes', cursive; }
 
-    /* ===== NAVBAR ===== */
+    /* Navegação */
     nav {
       position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
       display: flex; align-items: center; justify-content: space-between;
@@ -152,7 +152,7 @@
 
     .mobile-menu a:hover { background: rgba(200,169,110,0.1); color: var(--accent); }
 
-    /* ===== HERO ===== */
+    /* Hero */
     #inicio {
       position: relative; min-height: 100vh;
       display: flex; flex-direction: column; align-items: center; justify-content: center;
@@ -266,7 +266,7 @@
 
     .hero-scroll i { font-size: 1rem; }
 
-    /* ===== SECTION BASE ===== */
+    /* Base */
     section { padding: 90px 5%; }
 
     .section-label {
@@ -357,7 +357,7 @@
       text-transform: uppercase; color: var(--gray-600); margin-top: 4px;
     }
 
-    /* ===== AGENDA / CULTOS ===== */
+    /* Agenda e Cultos */
     #agenda {
       background: var(--black);
       color: var(--white);
@@ -488,7 +488,7 @@
 
     .pastor-social a:hover { background: var(--black); color: var(--white); border-color: var(--black); }
 
-    /* ===== CÉLULAS ===== */
+    /* Células */
     #celulas {
       background: var(--black); color: var(--white);
       text-align: center;
@@ -528,7 +528,7 @@
       font-size: 0.8rem; color: var(--gray-600); line-height: 1.6;
     }
 
-    /* ===== ONDE ESTAMOS ===== */
+    /* Local */
     #onde-estamos { background: var(--white); }
 
     .onde-grid {
@@ -573,7 +573,7 @@
 
     .map-container iframe { width: 100%; height: 100%; border: none; }
 
-    /* ===== REDES SOCIAIS ===== */
+    /* Rede Social */
     #redes {
       background: var(--gray-100); text-align: center;
       padding: 80px 5%;
@@ -603,7 +603,7 @@
     .rede-stats { font-size: 0.7rem; color: var(--gray-400); margin-top: 4px; }
     .rede-card:hover .rede-stats { color: var(--gray-400); }
 
-    /* ===== FALE CONOSCO ===== */
+    /* Contato */
     #fale-conosco {
       background: var(--black); color: var(--white);
       display: grid; grid-template-columns: 1fr 1fr;
@@ -669,7 +669,7 @@
       color: var(--accent);
     }
 
-    /* ===== FOOTER ===== */
+    /* Footer */
     footer {
       background: #080808; color: var(--white);
       padding: 60px 5% 30px;
@@ -745,7 +745,7 @@
 
     .footer-bottom a { color: var(--accent); text-decoration: none; }
 
-    /* ===== ANIMATIONS ===== */
+    /* Animação */
     @keyframes fadeUp {
       from { opacity: 0; transform: translateY(30px); }
       to { opacity: 1; transform: translateY(0); }
@@ -773,7 +773,7 @@
 
     .reveal.visible { opacity: 1; transform: translateY(0); }
 
-    /* ===== RESPONSIVE ===== */
+    /* Responsivo */
     @media (max-width: 960px) {
       #quem-somos { grid-template-columns: 1fr; gap: 48px; }
       .onde-grid { grid-template-columns: 1fr; }
@@ -806,7 +806,7 @@
 </head>
 <body>
 
-  <!-- ===== NAVBAR ===== -->
+  <!-- Navegação -->
   <nav id="navbar">
     <a href="#inicio" class="nav-logo">
         <img src="logo.png" alt="Logo Igreja Abundante Vida" class="logo-img" />      <div class="nav-logo-text">
@@ -830,7 +830,7 @@
     </button>
   </nav>
 
-  <!-- MOBILE MENU -->
+  <!-- Menu Celular -->
   <div class="mobile-menu" id="mobileMenu">
     <a href="#inicio" onclick="closeMenu()">Início</a>
     <a href="#quem-somos" onclick="closeMenu()">Quem Somos</a>
@@ -841,7 +841,7 @@
     <a href="https://www.youtube.com/@igrejaabundantevida_mepc" target="_blank">▶ Culto ao Vivo</a>
   </div>
 
-  <!-- ===== HERO ===== -->
+  <!-- Hero -->
   <section id="inicio">
     <div class="hero-bg"></div>
     <div class="hero-grid-overlay"></div>
@@ -876,7 +876,7 @@
     </div>
   </section>
 
-  <!-- ===== QUEM SOMOS ===== -->
+  <!-- Quem somos -->
   <section id="quem-somos">
     <div class="quem-somos-text reveal">
       <span class="section-label">Nossa História</span>
@@ -914,7 +914,7 @@
     </div>
   </section>
 
-  <!-- ===== AGENDA ===== -->
+  <!-- Agenda -->
   <section id="agenda">
     <div class="agenda-header reveal">
       <span class="section-label">Programação</span>
@@ -954,7 +954,7 @@
     </div>
   </section>
 
-  <!-- ===== PASTORES ===== -->
+  <!-- Pastores -->
   <section id="pastores" style="background: var(--gray-100);">
     <div style="text-align:center; max-width:600px; margin:0 auto 56px;" class="reveal">
       <span class="section-label">Liderança</span>
@@ -990,7 +990,7 @@
     </div>
   </section>
 
-  <!-- ===== CÉLULAS ===== -->
+  <!-- Células -->
   <section id="celulas">
     <div class="celulas-inner">
       <div class="reveal">
@@ -1026,7 +1026,7 @@
     </div>
   </section>
 
-  <!-- ===== ONDE ESTAMOS ===== -->
+  <!-- Local -->
   <section id="onde-estamos">
     <div style="max-width:600px; margin-bottom:48px;" class="reveal">
       <span class="section-label">Localização</span>
@@ -1079,7 +1079,7 @@
     </div>
   </section>
 
-  <!-- ===== REDES SOCIAIS ===== -->
+  <!-- Rede Social -->
   <section id="redes">
     <div class="reveal" style="max-width:500px; margin:0 auto 0;">
       <span class="section-label" style="display:block; text-align:center;">Conecte-se</span>
@@ -1106,7 +1106,7 @@
     </div>
   </section>
 
-  <!-- ===== RÁDIO ===== -->
+  <!-- Rádio -->
 
   <section id="redes">
     <div class="reveal" style="max-width:500px; margin:0 auto 0;">
@@ -1124,7 +1124,7 @@
     </div>
   </section>
 
-  <!-- ===== FALE CONOSCO ===== -->
+  <!-- Contato -->
   <section id="fale-conosco">
     <div class="fale-info reveal">
       <span class="section-label">Contato</span>
@@ -1176,7 +1176,7 @@
 </form>
   </section>
 
-  <!-- ===== FOOTER ===== -->
+  <!-- Footer -->
   <footer>
     <div class="footer-grid">
       <div>
@@ -1233,7 +1233,7 @@
     </div>
   </footer>
 
-  <!-- ===== JS ===== -->
+  <!-- Js -->
   <script>
     // Navbar scroll effect
     const navbar = document.getElementById('navbar');
